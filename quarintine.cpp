@@ -31,33 +31,48 @@ class quarintine{
     int allott_room(int age){
         if(age >= 60&&occ_ground!=GROUND_ROOMS){
             occ_ground++;
-            ground[occ_ground] = true;
-            return occ_ground + 1;
+            for(int i = 0; i < GROUND_ROOMS; i++){
+                if(ground[i] == false){
+                    ground[i] = true;
+                    return i + 1;
+                }
+            }
         }
-        else if(age < 60 && age >= 40 && occ_first!=FIRST_ROOMS){
+        else if(age < 60 && age >= 40 && occ_first<FIRST_ROOMS){
             occ_first++;
-            first[occ_first] = true;
-            return GROUND_ROOMS + occ_first + 1;
+            for(int i = 0; i < FIRST_ROOMS; i++){
+                if(first[i] == false){
+                    first[i] = true;
+                    return i + GROUND_ROOMS + 1;
+                }
+            }
         }
-        else if(age < 40 && occ_second!=SECOND_ROOMS){
+        else if(age < 40 && occ_second<SECOND_ROOMS){
             occ_second++;
-            second[occ_second] = true;
-            return GROUND_ROOMS + FIRST_ROOMS + occ_second + 1;
+            for(int i = 0; i < SECOND_ROOMS; i++){
+                if(second[i] == false){
+                    second[i] = true;
+                    return i + GROUND_ROOMS + FIRST_ROOMS + 1;
+                }
+            }
         }
-
         return -1;
     }
 
     void discharge_room(int floor_no, int serial_floor_no){
         if(floor_no == 0){
-            ground[serial_floor_no] = false;
+            occ_ground--;
+            ground[serial_floor_no-1] = false;
         }
         else if(floor_no == 1){
-            first[serial_floor_no] = false;
+            occ_first--;
+            first[serial_floor_no-1] = false;
         }
         else{
-            second[serial_floor_no] = false;
+            occ_second--;
+            second[serial_floor_no-1] = false;
         }
+        allotted_count--;
     }
 
     int calc_room_no(int floor, int serial_room_no){
@@ -73,11 +88,11 @@ class quarintine{
 
     bool check_occupancy(int floor, int serial_room_no){
         if(floor == 0)
-            return ground[serial_room_no];
+            return ground[serial_room_no-1];
         else if(floor == 1)
-            return first[serial_room_no];
+            return first[serial_room_no-1];
         else
-            return second[serial_room_no];
+            return second[serial_room_no-1];
     }
 
     bool binary_search(int room_no){
@@ -150,11 +165,13 @@ class quarintine{
             else{
                 for(auto& it : p){
                     if(allotted_count == 500)
-                    break;
+                        break;
                     if(!it.get_room_allotted()){
                         int room_no = allott_room(it.get_age());
-                        if(room_no!=-1)
+                        if(room_no!=-1){
                             allotted_count++;
+                            it.modify_discharged_date(true);
+                        }
                         it.modify_room_no(room_no);
                         }
                     }
@@ -186,8 +203,10 @@ class quarintine{
                 if(string_compare(it.get_patient_name(), patient_name)){
                     if(!it.get_room_allotted()){
                         int room_no = allott_room(it.get_age());
-                        if(room_no!=-1)
+                        if(room_no!=-1){
                             allotted_count++;
+                            it.modify_discharged_date(true);
+                        }
                         it.modify_room_no(room_no);
 
                         return room_no;
@@ -215,7 +234,7 @@ class quarintine{
             }
         }
 
-        bool search_patient(string patient_name, int serial_room_no = -1, int floor = -1){
+        bool search_patient(string patient_name, int serial_room_no = -1, int floor_no = -1){
             if(serial_room_no == -1){
                 for(auto& it : p){
                     if(string_compare(it.get_patient_name(), patient_name)){
@@ -226,7 +245,7 @@ class quarintine{
                 return false;
             }
             else{
-                int room_no = calc_room_no(serial_room_no, floor);
+                int room_no = calc_room_no(floor_no, serial_room_no);
                 return binary_search(room_no);
             }
         }
@@ -234,12 +253,13 @@ class quarintine{
         bool display_vacant_rooms(){
             int room_no = 500;
             bool flag = false;
-            while(room_no--){
+            while(room_no){
                 if(!check_occupancy(calc_floor_no(room_no), calc_serial_room_no(room_no))){
                     cout<<"Room no: "<<calc_serial_room_no(room_no)<<endl;
                     cout<<"Floor no: "<<calc_floor_no(room_no)<<endl<<endl;
                     flag = true;
                 }
+                room_no--;
             }
 
             return flag;
@@ -249,12 +269,13 @@ class quarintine{
         bool display_occupied_rooms(){
             int room_no = 500;
             bool flag = false;
-            while(room_no--){
+            while(room_no){
                 if(check_occupancy(calc_floor_no(room_no), calc_serial_room_no(room_no))){
                     cout<<"Room no: "<<calc_serial_room_no(room_no)<<endl;
                     cout<<"Floor no: "<<calc_floor_no(room_no)<<endl<<endl;
                     flag = true;
                 }
+                room_no--;
             }
 
             return flag;
@@ -265,12 +286,10 @@ class quarintine{
                     if(string_compare(it.get_patient_name(), patient_name)){
                         if(it.get_room_allotted()){
                             discharge_room(it.get_floor_no(), it.get_room_serial_no());
-                            cout<<"The following patient is discharged"<<endl;
-                            cout<<it.get_patient_name()<<endl;
+                            cout<<"This patient is being discharged"<<endl;
                             it.modify_room_no(-1);
                             it.modify_discharged_date();
                             it.display_details();
-
                         }
 
                         else{
@@ -281,6 +300,30 @@ class quarintine{
             }
             return false;
         }
+
+
+        void discharge_all_patients(){
+            for(auto& it : p){
+                    if(it.get_room_allotted()){
+                        discharge_room(it.get_floor_no(), it.get_room_serial_no());
+                        cout<<"This patient is being discharged"<<endl;
+                        it.modify_room_no(-1);
+                        it.modify_discharged_date();
+                        it.display_details();
+                    }
+        }
+    }
+
+        void facility_details(){
+            cout<<"Total rooms occupied: "<<allotted_count<<endl;
+            cout<<"Total rooms vacant: "<<500-allotted_count<<endl;
+            cout<<"Rooms occupied on ground floor: "<<occ_ground+1<<endl;
+            cout<<"Rooms occupied on first floor: "<<occ_first+1<<endl;
+            cout<<"Rooms occupied on second floor: "<<occ_second+1<<endl;
+            cout<<"Total patients in the record: "<<count+1<<endl;
+        }
+
+
 
 
 

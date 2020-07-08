@@ -40,6 +40,9 @@ int main(){
         cout<<"8. Display all vacant rooms"<<endl;
         cout<<"9. Display all occupied rooms"<<endl;
         cout<<"10. Discharge a specific patient"<<endl;
+        cout<<"11. Complete statistics of the quarintine facility"<<endl;
+        cout<<"12. Discharge all patients"<<endl;
+        cout<<"13. Exit"<<endl;
         cin>>option;
         switch(option){
             case 1: 
@@ -122,7 +125,7 @@ int main(){
                     cin>>serial_room_no;
                     cout<<"Please enter the patient's floor no (0 for Ground, 1 for First, 2 for Second)"<<endl;
                     cin>>floor_no;
-                    flag = facility.search_patient("none",serial_room_no,floor_no);
+                    flag = facility.search_patient("none", serial_room_no,floor_no);
                 }
                 if(!flag)
                         cout<<"Patient's record was not found"<<endl;
@@ -175,6 +178,23 @@ int main(){
                     cout<<"The patient's record were not found"<<endl;
                 }
                 break;
+            
+            case 11:
+                facility.facility_details();
+                break;
+            
+            case 12:
+                facility.discharge_all_patients();
+                break;
+            
+            case 13:
+                cout<<"Are you sure you want to exit? (y/n)"<<endl;
+                cin>>choice;
+                if(choice=='y'||choice=='Y')
+                    return 0;
+                
+                break;
+                
 
             default:
                 cout<<"Incorrect input, please try again"<<endl;                

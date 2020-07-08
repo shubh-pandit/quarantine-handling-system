@@ -151,8 +151,11 @@ class patient{
             floor_no = value;
         }
 
-        void modify_discharged_date(){
-            discharged_date = convert_date_to_string();
+        void modify_discharged_date(bool a = false){
+            if(a)
+                discharged_date = "none";
+            else
+                discharged_date = convert_date_to_string();
         }
 
         bool get_room_allotted(){
