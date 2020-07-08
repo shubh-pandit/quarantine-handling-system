@@ -16,6 +16,7 @@ using namespace std;
 #include <iomanip>
 #include <ctime>
 #include <sstream>
+#include<algorithm>
 #include"patient.cpp"
 #include"quarintine.cpp"
 
@@ -42,7 +43,8 @@ int main(){
         cout<<"10. Discharge a specific patient"<<endl;
         cout<<"11. Complete statistics of the quarintine facility"<<endl;
         cout<<"12. Discharge all patients"<<endl;
-        cout<<"13. Exit"<<endl;
+        cout<<"13. Sort the patient's list by their respective room numbers"<<endl;
+        cout<<"14. Exit"<<endl;
         cin>>option;
         switch(option){
             case 1: 
@@ -186,8 +188,14 @@ int main(){
             case 12:
                 facility.discharge_all_patients();
                 break;
-            
+
             case 13:
+                facility.sort_by_room_no();
+                cout<<"The list has been sorted"<<endl;
+                facility.display_all_patients();
+                break;
+            
+            case 14:
                 cout<<"Are you sure you want to exit? (y/n)"<<endl;
                 cin>>choice;
                 if(choice=='y'||choice=='Y')

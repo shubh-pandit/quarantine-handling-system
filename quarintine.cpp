@@ -106,6 +106,10 @@ class quarintine{
         return false;
     }
 
+    static bool comp_room_no(patient &A, patient &B){
+        return (A.get_room_no() < B.get_room_no());
+    }
+
     public:
         quarintine(){
             occ_ground = -1;
@@ -321,6 +325,10 @@ class quarintine{
             cout<<"Rooms occupied on first floor: "<<occ_first+1<<endl;
             cout<<"Rooms occupied on second floor: "<<occ_second+1<<endl;
             cout<<"Total patients in the record: "<<count+1<<endl;
+        }
+
+        void sort_by_room_no(){
+            sort(p.begin(), p.end(), comp_room_no);
         }
 
 
