@@ -25,10 +25,12 @@ int main(){
     quarintine facility;
     char choice ='y';
     int option = -1, n = -1;
-    bool flag = false;
+    bool flag = false, flag2 = true;
     string s;
+    
     do{
-        cout<<"*****************Welcome to the quarintine facility management system of NIT SILCHAR**************"<<endl<<endl;
+        if(flag2)
+            cout<<endl<<endl<<"*****************Welcome to the quarintine facility management system of NIT SILCHAR**************"<<endl<<endl;
         cout<<"What do you want to do?"<<endl;
         cout<<"Please input the number corresponding to your choice:"<<endl;
         cout<<"1. Fill the registry with random names for testing"<<endl;
@@ -44,7 +46,8 @@ int main(){
         cout<<"11. Complete statistics of the quarintine facility"<<endl;
         cout<<"12. Discharge all patients"<<endl;
         cout<<"13. Sort the patient's list by their respective room numbers"<<endl;
-        cout<<"14. Exit"<<endl;
+        cout<<"14. Delete the records of all discharged patients"<<endl;
+        cout<<"15. Exit"<<endl;
         cin>>option;
         switch(option){
             case 1: 
@@ -194,8 +197,13 @@ int main(){
                 cout<<"The list has been sorted"<<endl;
                 facility.display_all_patients();
                 break;
-            
+
             case 14:
+                cout<<"Deleting the records of all discharged patients.."<<endl;
+                facility.remove_discharged_patients();
+                break;
+            
+            case 15:
                 cout<<"Are you sure you want to exit? (y/n)"<<endl;
                 cin>>choice;
                 if(choice=='y'||choice=='Y')
@@ -207,7 +215,8 @@ int main(){
             default:
                 cout<<"Incorrect input, please try again"<<endl;                
             }
-        cout<<"Would you like to continue? (y/n)"<<endl;
+        flag2 = false;
+        cout<<"Continue? (y/n)"<<endl;
         cin>>choice;
     }while(choice == 'y' || choice == 'Y');
     return 0;

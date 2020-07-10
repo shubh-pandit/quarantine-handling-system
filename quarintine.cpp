@@ -38,7 +38,7 @@ class quarintine{
                 }
             }
         }
-        else if(age < 60 && age >= 40 && occ_first<FIRST_ROOMS){
+        else if(age < 60 && age >= 40 && occ_first<FIRST_ROOMS - 1){
             occ_first++;
             for(int i = 0; i < FIRST_ROOMS; i++){
                 if(first[i] == false){
@@ -47,7 +47,7 @@ class quarintine{
                 }
             }
         }
-        else if(age < 40 && occ_second<SECOND_ROOMS){
+        else if(age < 40 && occ_second<SECOND_ROOMS - 1){
             occ_second++;
             for(int i = 0; i < SECOND_ROOMS; i++){
                 if(second[i] == false){
@@ -238,6 +238,10 @@ class quarintine{
             }
         }
 
+        void sort_by_room_no(){
+            sort(p.begin(), p.end(), comp_room_no);
+        }
+
         bool search_patient(string patient_name, int serial_room_no = -1, int floor_no = -1){
             if(serial_room_no == -1){
                 for(auto& it : p){
@@ -315,8 +319,8 @@ class quarintine{
                         it.modify_discharged_date();
                         it.display_details();
                     }
+            }
         }
-    }
 
         void facility_details(){
             cout<<"Total rooms occupied: "<<allotted_count<<endl;
@@ -327,8 +331,13 @@ class quarintine{
             cout<<"Total patients in the record: "<<count+1<<endl;
         }
 
-        void sort_by_room_no(){
-            sort(p.begin(), p.end(), comp_room_no);
+        void remove_discharged_patients(){
+            for(auto& it : p){
+                if(!(string_compare(it.get_discharged_date(),"none"))){
+                    p.erase(p.begin()+it.get_id());
+                }
+
+        }
         }
 
 

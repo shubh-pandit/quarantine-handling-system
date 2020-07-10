@@ -158,6 +158,10 @@ class patient{
                 discharged_date = convert_date_to_string();
         }
 
+        string get_discharged_date(){
+            return discharged_date;
+        }
+
         bool get_room_allotted(){
             return room_allotted;
         }
@@ -168,6 +172,10 @@ class patient{
 
         bool get_empty(){
             return empty;
+        }
+
+        int get_id(){
+            return id;
         }
 
         string get_patient_name(){
