@@ -170,7 +170,7 @@ class quarintine{
                 for(auto& it : p){
                     if(allotted_count == 500)
                         break;
-                    if(!it.get_room_allotted()){
+                    if((!it.get_room_allotted()) && (string_compare(it.get_discharged_date(),"none"))){
                         int room_no = allott_room(it.get_age());
                         if(room_no!=-1){
                             allotted_count++;
@@ -330,25 +330,6 @@ class quarintine{
             cout<<"Rooms occupied on second floor: "<<occ_second+1<<endl;
             cout<<"Total patients in the record: "<<count+1<<endl;
         }
-
-        void remove_discharged_patients(){
-            for(auto& it : p){
-                if(!(string_compare(it.get_discharged_date(),"none"))){
-                    p.erase(p.begin()+it.get_id());
-                }
-
-        }
-        }
-
-
-
-
-
-
-
-
-
-
 
 
 

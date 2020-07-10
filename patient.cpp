@@ -1,4 +1,3 @@
-using namespace std;
 class patient{
     private:
         string name;
@@ -57,6 +56,10 @@ class patient{
                 destination = random_string(10);
                 empty = false;
                 room_allotted = false;
+                discharged_date = "none";
+                room_serial_no = -1;
+                room_no = -1;
+                floor_no = -1;
             }
 
             else{
