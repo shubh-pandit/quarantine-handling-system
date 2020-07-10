@@ -18,11 +18,11 @@ using namespace std;
 #include <sstream>
 #include<algorithm>
 #include"patient.cpp"
-#include"quarintine.cpp"
+#include"quarantine.cpp"
 
 int main(){
     srand((unsigned) time(0));
-    quarintine facility;
+    quarantine facility;
     char choice ='y';
     int option = -1, n = -1;
     bool flag = false, flag2 = true;
@@ -30,7 +30,7 @@ int main(){
     
     do{
         if(flag2)
-            cout<<endl<<endl<<"*****************Welcome to the quarintine facility management system of NIT SILCHAR**************"<<endl<<endl;
+            cout<<endl<<endl<<"*****************Welcome to the quarantine facility management system of NIT SILCHAR**************"<<endl<<endl;
         cout<<"What do you want to do?"<<endl;
         cout<<"Please input the number corresponding to your choice:"<<endl;
         cout<<"1. Fill the registry with random names for testing"<<endl;
@@ -43,7 +43,7 @@ int main(){
         cout<<"8. Display all vacant rooms"<<endl;
         cout<<"9. Display all occupied rooms"<<endl;
         cout<<"10. Discharge a specific patient"<<endl;
-        cout<<"11. Complete statistics of the quarintine facility"<<endl;
+        cout<<"11. Complete statistics of the quarantine facility"<<endl;
         cout<<"12. Discharge all patients"<<endl;
         cout<<"13. Sort the patient's list by their respective room numbers"<<endl;
         cout<<"14. Exit"<<endl;

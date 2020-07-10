@@ -1,4 +1,4 @@
-class quarintine{
+class quarantine{
     private:
         int occ_ground;
         int occ_first;
@@ -111,7 +111,7 @@ class quarintine{
     }
 
     public:
-        quarintine(){
+        quarantine(){
             occ_ground = -1;
             occ_first = -1;
             occ_second = -1;
