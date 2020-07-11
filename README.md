@@ -1,3 +1,3 @@
 # quarantine-handling-system
 
-https://repl.it/@shubhpandit/quarantine-handling-system
+https://quarantine-handling-system.shubhpandit.repl.run
