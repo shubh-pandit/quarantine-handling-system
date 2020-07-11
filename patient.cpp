@@ -14,7 +14,7 @@ class patient{
         bool empty;
         bool room_allotted;
 
-    string random_string(size_t length){
+    string random_string(size_t length){ //generates a random string of size length
         auto randchar = []() -> char
         {
             const char charset[] =
@@ -29,11 +29,11 @@ class patient{
         return str;
     }
 
-    int random_number(int low, int high){
+    int random_number(int low, int high){ //generates a random number bw a given range
         return low + (rand() % high);
     }
 
-    string convert_date_to_string(){
+    string convert_date_to_string(){ //returns the current time in string format
         auto t = std::time(nullptr);
         auto tm = *std::localtime(&t);
         std::ostringstream oss;
@@ -46,8 +46,8 @@ class patient{
 
 
     public:
-        patient(int i, bool value=false){
-            if(value){
+        patient(int i, bool value=false){  
+            if(value){ //used for generating random entries for testing
                 name = random_string(10);
                 address = random_string(15);
                 age = random_number(12,70);
@@ -79,7 +79,7 @@ class patient{
             id = i+1;
         }
 
-        void display_details(){
+        void display_details(){ //displays the details of the patient
             cout<<endl;
             cout<<"Patient Number #"<<id<<endl;
             cout<<"Patient's name : "<<name<<endl;
@@ -96,7 +96,7 @@ class patient{
             cout<<endl<<endl;
         }
 
-        void input_details(){
+        void input_details(){ //takes input from the user for the details of the patient
             cout<<"Patient Number #"<<id<<endl;
             cout<<"Please input the Patient details"<<endl;
             cout<<"Name"<<endl;
@@ -114,15 +114,15 @@ class patient{
 
         }
 
-        int get_room_no(){
+        int get_room_no(){ //returns the room number of the patient
             return room_no;
         }
 
-        int get_room_serial_no(){
+        int get_room_serial_no(){ //returns the serial room no of the patient
             return room_serial_no;
         }
 
-        void modify_room_no(int value){
+        void modify_room_no(int value){ //modifies the room number, floor number and room_allotted according to the passed value
             if(value == -1){
                 room_allotted = false;
                 room_serial_no = -1;
@@ -146,42 +146,42 @@ class patient{
             }
         }
 
-        int get_floor_no(){
+        int get_floor_no(){ //returns the floor number of the patient
             return floor_no;
         }
 
-        void modify_floor_no(int value){
+        void modify_floor_no(int value){ //modifies the floor number of the patient
             floor_no = value;
         }
 
-        void modify_discharged_date(bool a = false){
+        void modify_discharged_date(bool a = false){ //modifies the discharge date to either none or the current time depending on the passed value
             if(a)
                 discharged_date = "none";
             else
                 discharged_date = convert_date_to_string();
         }
 
-        string get_discharged_date(){
+        string get_discharged_date(){ //returns the discharged date of the patient
             return discharged_date;
         }
 
-        bool get_room_allotted(){
+        bool get_room_allotted(){ //returns true if the patient has been allotted a room, otherwise false
             return room_allotted;
         }
 
-        int get_age(){
+        int get_age(){ //returns the age of the patient
             return age;
         }
 
-        bool get_empty(){
+        bool get_empty(){ //returns false if the patient's details haven't been filled yet (used as a failsafe)
             return empty;
         }
 
-        int get_id(){
+        int get_id(){ //returns the id of the patient
             return id;
         }
 
-        string get_patient_name(){
+        string get_patient_name(){ //returns the name of the patient
             return name;
         }
 

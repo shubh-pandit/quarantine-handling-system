@@ -1,34 +1,33 @@
 const int TOTAL_ROOMS = 500;
 const int GROUND_ROOMS = 200;
 const int FIRST_ROOMS = 150;
-const int SECOND_ROOMS = 150;
+const int SECOND_ROOMS = 150; //The values of these constants can be changed as it seems fit
 
 using namespace std; 
 
-
-#include<iostream>
-#include<string>
+#include<iostream> 
+#include<string> 
 #include<bits/stdc++.h> 
 #include<vector>
 #include<ctype.h>
 #include<ctime>
-#include<random>
-#include <iomanip>
-#include <ctime>
-#include <sstream>
+#include<random> 
+#include <iomanip> 
+#include <sstream> 
 #include<algorithm>
-#include"patient.cpp"
-#include"quarantine.cpp"
+#include"patient.cpp" //contains the patient class
+#include"quarantine.cpp" //contains the quarantine class
 
 int main(){
-    srand((unsigned) time(0));
-    quarantine facility;
+    srand((unsigned) time(0)); //seeding the rand function
+    quarantine facility; 
     char choice ='y';
     int option = -1, n = -1;
-    bool flag = false, flag2 = true;
-    string s;
+    bool flag = false, flag2 = true; //these variables are used in getting the input from the user
+    string s; 
     
     do{
+        
         if(flag2)
             cout<<endl<<endl<<"*****************Welcome to the quarantine facility management system of NIT SILCHAR**************"<<endl<<endl;
         cout<<"What do you want to do?"<<endl;
@@ -56,7 +55,7 @@ int main(){
                     cout<<"The registry will be filled with random data for your convenience"<<endl;
                     cout<<"Please input the number of patients you want to be added (should not be greater than 500)"<<endl;
                     cin>>n;
-                    if(n > 500 || n <= 0){
+                    if(n > 500 || n <= 0){ //if entered value is out of bounds, user is asked to try again
                         flag = true;
                         cout<<"Incorrect input, please try again."<<endl;
                     }
